@@ -2,13 +2,15 @@
 
 import { useRouter } from "next/navigation"
 import { Bell } from "lucide-react"
+import { toast } from "react-toastify"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { toast } from "@/components/ui/use-toast"
 import { supabase } from "@/lib/supabase"
+
+import "react-toastify/dist/ReactToastify.css"
 
 interface User {
   user_metadata: {
@@ -20,6 +22,8 @@ interface User {
 export function DashboardHeader({ user }: { user: User }) {
   const router = useRouter()
 
+  // Ensure toast is configured once in your app (if not already done in _app.tsx or layout)
+
   const handleLogout = async () => {
     try {
       const { error } = await supabase.auth.signOut()
@@ -27,11 +31,7 @@ export function DashboardHeader({ user }: { user: User }) {
 
       router.push("/login")
     } catch {
-      toast({
-        type: "error",
-        title: "Error",
-        description: "Failed to log out. Please try again.",
-      })
+      toast.error("Failed to log out. Please try again.")
     }
   }
 
@@ -72,4 +72,3 @@ export function DashboardHeader({ user }: { user: User }) {
     </header>
   )
 }
-
