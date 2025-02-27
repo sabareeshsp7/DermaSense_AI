@@ -1,101 +1,93 @@
-import Image from "next/image";
+import Link from "next/link"
+import { ArrowRight, Shield, Stethoscope, Users } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="flex min-h-screen flex-col">
+      {/* Navigation */}
+      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-14 items-center justify-between">
+          <h1 className="text-xl font-bold">DermaSense AI</h1>
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            <Link href="/login">
+              <Button variant="ghost">Login</Button>
+            </Link>
+            <Link href="/register">
+              <Button>Sign Up</Button>
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </header>
+
+      {/* Hero Section */}
+      <div className="relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-100 to-teal-100 dark:from-blue-950 dark:to-teal-950" />
+        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
+              <span className="block">DermaSense AI</span>
+              <span className="block text-blue-600 dark:text-blue-400">Smart Skin Health Management</span>
+            </h1>
+            <p className="mx-auto mt-3 max-w-md text-base text-gray-500 dark:text-gray-400 sm:text-lg md:mt-5 md:max-w-3xl md:text-xl">
+              Advanced AI-powered skin disease prediction and healthcare management platform. Get instant analysis,
+              doctor recommendations, and personalized health tracking.
+            </p>
+            <div className="mx-auto mt-5 max-w-md sm:flex sm:justify-center md:mt-8">
+              <div className="rounded-md shadow">
+                <Link href="/register">
+                  <Button className="w-full px-8 py-3 text-base font-medium sm:px-10">
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Features Section */}
+      <div className="relative bg-white dark:bg-gray-900 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <Card className="transform transition-all hover:scale-105">
+              <CardContent className="p-6">
+                <Shield className="h-12 w-12 text-blue-500" />
+                <h3 className="mt-4 text-lg font-medium">AI-Powered Analysis</h3>
+                <p className="mt-2 text-gray-500 dark:text-gray-400">
+                  Get instant skin condition analysis using advanced machine learning models.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="transform transition-all hover:scale-105">
+              <CardContent className="p-6">
+                <Stethoscope className="h-12 w-12 text-blue-500" />
+                <h3 className="mt-4 text-lg font-medium">Expert Recommendations</h3>
+                <p className="mt-2 text-gray-500 dark:text-gray-400">
+                  Connect with specialized dermatologists and get personalized treatment plans.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="transform transition-all hover:scale-105">
+              <CardContent className="p-6">
+                <Users className="h-12 w-12 text-blue-500" />
+                <h3 className="mt-4 text-lg font-medium">Community Support</h3>
+                <p className="mt-2 text-gray-500 dark:text-gray-400">
+                  Join our community forum to share experiences and get support from others.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
+

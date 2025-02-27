@@ -1,0 +1,23 @@
+{
+    "common": {
+      "dashboard": "Dashboard",
+      "profile": "Profile",
+      "settings": "Settings",
+      "logout": "Logout",
+      "analysis": "Analysis",
+      "appointments": "Appointments",
+      "doctors": "Doctors",
+      "medicalHistory": "Medical History"
+    },
+    "dashboard": {
+      "welcome": "Welcome back",
+      "aiAnalysis": "AI Analysis",
+      "uploadImage": "Upload Image",
+      "analyzing": "Analyzing...",
+      "bookAppointment": "Book Appointment",
+      "viewHistory": "View History",
+      "recentActivity": "Recent Activity"
+    }
+  }
+  
+  

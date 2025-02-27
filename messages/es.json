@@ -1,0 +1,23 @@
+{
+    "common": {
+      "dashboard": "Panel",
+      "profile": "Perfil",
+      "settings": "Ajustes",
+      "logout": "Cerrar sesión",
+      "analysis": "Análisis",
+      "appointments": "Citas",
+      "doctors": "Médicos",
+      "medicalHistory": "Historial Médico"
+    },
+    "dashboard": {
+      "welcome": "Bienvenido de nuevo",
+      "aiAnalysis": "Análisis IA",
+      "uploadImage": "Subir Imagen",
+      "analyzing": "Analizando...",
+      "bookAppointment": "Reservar Cita",
+      "viewHistory": "Ver Historial",
+      "recentActivity": "Actividad Reciente"
+    }
+  }
+  
+  
