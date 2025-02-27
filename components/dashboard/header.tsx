@@ -29,7 +29,7 @@ export function DashboardHeader({ user }: { user: User }) {
       const { error } = await supabase.auth.signOut()
       if (error) throw error
 
-      router.push("/login")
+      router.push("/")
     } catch {
       toast.error("Failed to log out. Please try again.")
     }
