@@ -107,7 +107,7 @@ export default function RegisterPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Join DermaSense AI
+            Join Carcino AI
           </motion.h1>
           <div className="space-y-6">
             {features.map((feature, index) => (
@@ -134,7 +134,7 @@ export default function RegisterPage() {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Create an account</CardTitle>
-            <CardDescription>Get started with DermaSense AI by creating your account.</CardDescription>
+            <CardDescription>Get started with Carcino AI by creating your account.</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>

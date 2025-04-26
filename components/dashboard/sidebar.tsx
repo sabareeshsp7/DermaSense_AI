@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { motion } from "framer-motion"
 import {
   Activity,
   Calendar,
@@ -11,16 +10,16 @@ import {
   FileText,
   Home,
   Menu,
-  Package,
   Settings,
   ShoppingBag,
-  Stethoscope,
   User,
-  X,
+  Users,
+  Microscope,
+  Pill,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 
 const menuItems = [
@@ -30,19 +29,29 @@ const menuItems = [
     href: "/dashboard",
   },
   {
-    title: "AI Analysis",
-    icon: Activity,
+    title: "Skin Cancer Analysis",
+    icon: Microscope,
     href: "/dashboard/analysis",
   },
   {
-    title: "Appointments",
+    title: "Oncologist Appointments",
     icon: Calendar,
     href: "/dashboard/appointments",
   },
   {
-    title: "Doctors",
-    icon: Stethoscope,
-    href: "/dashboard/doctors",
+    title: "Treatment Plans",
+    icon: Activity,
+    href: "/dashboard/treatment",
+  },
+  {
+    title: "Health Metrics & Medication",
+    icon: Pill,
+    href: "/dashboard/metrics",
+  },
+  {
+    title: "Community & Resources",
+    icon: Users,
+    href: "/dashboard/community",
   },
   {
     title: "Medical Shop",
@@ -50,13 +59,8 @@ const menuItems = [
     href: "/dashboard/shop",
   },
   {
-    title: "Prescriptions",
-    icon: FileText,
-    href: "/dashboard/prescriptions",
-  },
-  {
     title: "Medical History",
-    icon: Package,
+    icon: FileText,
     href: "/dashboard/medical-history",
   },
   {
@@ -81,8 +85,7 @@ export function DashboardSidebar() {
         const isActive = pathname === item.href
         return (
           <Link key={item.href} href={item.href}>
-            <motion.div
-              whileHover={{ x: 4 }}
+            <div
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium",
                 isActive ? "bg-primary text-primary-foreground" : "hover:bg-accent hover:text-accent-foreground",
@@ -91,7 +94,7 @@ export function DashboardSidebar() {
               <item.icon className="h-4 w-4" />
               <span>{item.title}</span>
               {isActive && <ChevronRight className="ml-auto h-4 w-4" />}
-            </motion.div>
+            </div>
           </Link>
         )
       })}
@@ -108,15 +111,14 @@ export function DashboardSidebar() {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-64 p-0">
-          <div className="flex h-14 items-center border-b px-4">
-            <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
-              <Activity className="h-6 w-6 text-primary" />
-              <span>DermaSense AI</span>
-            </Link>
-            <Button variant="ghost" size="icon" className="ml-auto" onClick={() => setIsOpen(false)}>
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
+          <SheetHeader className="h-14 border-b px-4">
+            <SheetTitle className="flex items-center gap-2">
+              <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
+                <Activity className="h-6 w-6 text-primary" />
+                <span>Carcino AI</span>
+              </Link>
+            </SheetTitle>
+          </SheetHeader>
           <SidebarContent />
         </SheetContent>
       </Sheet>
@@ -126,7 +128,7 @@ export function DashboardSidebar() {
         <div className="flex h-14 items-center border-b px-4">
           <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
             <Activity className="h-6 w-6 text-primary" />
-            <span>DermaSense AI</span>
+            <span>Carcino AI</span>
           </Link>
         </div>
         <SidebarContent />

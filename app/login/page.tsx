@@ -33,7 +33,7 @@ const features = [
   {
     icon: Brain,
     title: "AI-Powered Analysis",
-    description: "Advanced skin condition detection using machine learning",
+    description: "Advanced AI-powered skin cancer detection using machine learning",
   },
   {
     icon: Stethoscope,
@@ -104,7 +104,7 @@ export default function LoginPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Welcome to DermaSense AI
+            Welcome to Carcino AI
           </motion.h1>
           <div className="space-y-6">
             {features.map((feature, index) => (
@@ -131,7 +131,7 @@ export default function LoginPage() {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Login to your account</CardTitle>
-            <CardDescription>Enter your credentials to access your Dermasense-AI dashboard</CardDescription>
+            <CardDescription>Enter your credentials to access your Carcino AI dashboard</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>

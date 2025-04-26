@@ -10,6 +10,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { ThemeToggle } from "@/components/theme-toggle"
 import { supabase } from "@/lib/supabase"
 
+
 import "react-toastify/dist/ReactToastify.css"
 
 interface User {
@@ -72,3 +73,5 @@ export function DashboardHeader({ user }: { user: User }) {
     </header>
   )
 }
+
+
