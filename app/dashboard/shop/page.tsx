@@ -138,13 +138,26 @@ const sampleProducts = [
 
 export default function ShopPage() {
   const [view, setView] = useState<"grid" | "list">("grid")
-  const [selectedProduct, setSelectedProduct] = useState<any>(null)
+  type Product = {
+    id: number
+    name: string
+    description: string
+    price: number
+    rating: number
+    image: string
+    category: string
+    requiresPrescription: boolean
+    inStock: boolean
+    discount?: number
+  }
+
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [sortBy, setSortBy] = useState("popular")
   const router = useRouter()
   const { addItem, itemCount } = useCart()
 
-  const handleAddToCart = (product: any) => {
+  const handleAddToCart = (product: Product) => {
     addItem(product)
     toast({
       title: "Added to cart",
@@ -152,14 +165,14 @@ export default function ShopPage() {
     })
   }
 
-  const handleAddToWishlist = (product: any) => {
+  const handleAddToWishlist = (product: Product) => {
     toast({
       title: "Added to wishlist",
       description: `${product.name} has been added to your wishlist.`,
     })
   }
 
-  const handleShare = (product: any) => {
+  const handleShare = (product: Product) => {
     const shareUrl = `${window.location.origin}/shop/product/${product.id}`
 
     if (navigator.share) {
@@ -317,10 +330,20 @@ export default function ShopPage() {
 
       {/* Product Detail Modal */}
       <ProductDetail
-        product={selectedProduct}
+        product={selectedProduct || {
+          id: 0,
+          name: '',
+          image: '',
+          price: 0,
+          rating: 0,
+          requiresPrescription: false,
+          description: '',
+          inStock: false,
+          category: '',
+        } as Product}
         open={!!selectedProduct}
         onClose={() => setSelectedProduct(null)}
-        onAddToCart={handleAddToCart}
+        onAddToCart={() => selectedProduct && handleAddToCart(selectedProduct)}
       />
     </div>
   )

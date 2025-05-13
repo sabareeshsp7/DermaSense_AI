@@ -54,9 +54,10 @@ export function HealthJournal({ entries, onEdit }: HealthJournalProps) {
 
   const handleConfirmDelete = () => {
     // In a real app, this would delete the entry from the database
+    // For now, we'll just log it or show it in the toast
     toast({
       title: "Journal entry deleted",
-      description: "Your journal entry has been deleted successfully.",
+      description: `Journal entry with ID ${entryToDelete} has been deleted successfully.`,
     })
 
     setShowDeleteDialog(false)
@@ -67,7 +68,7 @@ export function HealthJournal({ entries, onEdit }: HealthJournalProps) {
     // In a real app, this would share the entry
     toast({
       title: "Journal entry shared",
-      description: "Your journal entry has been shared with your healthcare provider.",
+      description: `Journal entry with ID ${entryToShare} has been shared with your healthcare provider.`,
     })
 
     setShowShareDialog(false)

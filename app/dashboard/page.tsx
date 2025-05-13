@@ -54,48 +54,64 @@ const features = [
       description: "Upload images for AI-powered carcinoma detection",
       icon: Microscope,
       href: "/dashboard/analysis",
+      color: "bg-blue-100",
+      iconColor: "text-blue-500",
     },
     {
       title: "Oncologist Appointments",
       description: "Schedule consultations with skin cancer specialists",
       icon: Calendar,
       href: "/dashboard/appointments",
+      color: "bg-green-100",
+      iconColor: "text-green-500",
     },
     {
       title: "Treatment Plans",
       description: "View and manage your personalized treatment plans",
       icon: Activity,
       href: "/dashboard/treatment",
+      color: "bg-purple-100",
+      iconColor: "text-purple-500",
     },
     {
       title: "Health Metrics & Medication",
       description: "Track health indicators and manage medications",
       icon: Pill,
       href: "/dashboard/metrics",
+      color: "bg-red-100",
+      iconColor: "text-red-500",
     },
     {
       title: "Community & Resources",
       description: "Connect with others and access educational resources",
       icon: Users,
       href: "/dashboard/community",
+      color: "bg-yellow-100",
+      iconColor: "text-yellow-500",
     },
     {
       title: "Medical Shop",
       description: "Purchase recommended medical supplies and products",
       icon: ShoppingBag,
       href: "/dashboard/shop",
+      color: "bg-pink-100",
+      iconColor: "text-pink-500",
     },
     {
       title: "Medical History",
       description: "View your complete medical records and history",
       icon: FileText,
       href: "/dashboard/medical-history",
+      color: "bg-indigo-100",
+      iconColor: "text-indigo-500",
     },
     {
       title: "Profile & Settings",
       description: "Manage your account and preferences",
       icon: User,
       href: "/dashboard/profile",
+      color: "bg-gray-100",
+      iconColor: "text-gray-500",
     },
   
 ]
@@ -171,6 +187,7 @@ export default function DashboardPage() {
           {banners.map((_, index) => (
             <button
               key={index}
+              aria-label={`Go to banner ${index + 1}`}
               className={`w-2 h-2 rounded-full transition-all ${
                 currentBanner === index ? "w-6 bg-white" : "bg-white/50"
               }`}

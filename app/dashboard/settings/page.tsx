@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -75,7 +74,7 @@ export default function SettingsPage() {
       if (userError || !user) {
         // Use demo mode instead of redirecting
         setDemoMode(true)
-        setUser(demoUser as any)
+        setUser(demoUser as User)
 
         form.reset({
           theme: demoSettings.theme,
@@ -95,7 +94,7 @@ export default function SettingsPage() {
       console.error("Error:", error)
       // Use demo mode instead of redirecting
       setDemoMode(true)
-      setUser(demoUser as any)
+      setUser(demoUser as User)
 
       form.reset({
         theme: demoSettings.theme,

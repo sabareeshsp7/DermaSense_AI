@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
 import { motion } from "framer-motion"
@@ -113,7 +112,6 @@ const demoMedicalHistory: Array<{
 ]
 
 export default function ProfilePage() {
-  const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState<UserType | null>(null)
   interface ProfileType {
@@ -154,7 +152,7 @@ export default function ProfilePage() {
       if (userError || !user) {
         // Use demo mode instead of redirecting
         setDemoMode(true)
-        setUser(demoUser as any)
+        setUser(demoUser as UserType)
         setProfile(demoProfile)
         setMedicalHistory(demoMedicalHistory)
 
@@ -177,7 +175,7 @@ export default function ProfilePage() {
       console.error("Error:", error)
       // Use demo mode instead of redirecting
       setDemoMode(true)
-      setUser(demoUser as any)
+      setUser(demoUser as UserType)
       setProfile(demoProfile)
       setMedicalHistory(demoMedicalHistory)
 

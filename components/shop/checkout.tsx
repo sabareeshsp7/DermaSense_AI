@@ -40,7 +40,7 @@ export function Checkout({ cart, total, onSuccess }: CheckoutProps) {
     },
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit() {
     try {
       setLoading(true)
       // Here you would typically make an API call to process the order

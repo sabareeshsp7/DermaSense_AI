@@ -96,15 +96,15 @@ export default function PaymentPage() {
     }
   }
 
-  const onCardSubmit = (values: z.infer<typeof cardFormSchema>) => {
+  const onCardSubmit = () => {
     processPayment()
   }
 
-  const onUpiSubmit = (values: z.infer<typeof upiFormSchema>) => {
+  const onUpiSubmit = () => {
     processPayment()
   }
 
-  const onNetbankingSubmit = (values: z.infer<typeof netbankingFormSchema>) => {
+  const onNetbankingSubmit = () => {
     processPayment()
   }
 
@@ -146,7 +146,7 @@ export default function PaymentPage() {
             <CardContent className="space-y-6">
               <RadioGroup
                 value={paymentMethod}
-                onValueChange={(value) => setPaymentMethod(value as any)}
+                onValueChange={(value: "card" | "upi" | "netbanking" | "cod") => setPaymentMethod(value)}
                 className="grid grid-cols-2 gap-4 md:grid-cols-4"
               >
                 <div>

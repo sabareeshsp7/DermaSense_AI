@@ -49,7 +49,21 @@ export default function DeliveryMap({ selectedPosition, readOnly = false, onPosi
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {selectedPosition && <Marker position={[selectedPosition.lat, selectedPosition.lng]} icon={icon} />}
+      {selectedPosition && (
+        <Marker
+          position={[selectedPosition.lat, selectedPosition.lng]}
+          icon={icon}
+          draggable={!readOnly}
+          eventHandlers={{
+            dragend: (event) => {
+              if (onPositionChange) {
+                const { lat, lng } = event.target.getLatLng()
+                onPositionChange({ lat, lng })
+              }
+            },
+          }}
+        />
+      )}
     </MapContainer>
   )
 }

@@ -21,9 +21,9 @@ interface ProductCardProps {
     discount?: number
   }
   view: "grid" | "list"
-  onAddToCart: (product: any) => void
-  onAddToWishlist: (product: any) => void
-  onShare: (product: any) => void
+  onAddToCart: (product: ProductCardProps["product"]) => void
+  onAddToWishlist: (product: ProductCardProps["product"]) => void
+  onShare: (product: ProductCardProps["product"]) => void
   onClick: () => void
 }
 

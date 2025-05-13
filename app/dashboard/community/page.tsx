@@ -246,7 +246,19 @@ export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState("all")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const [selectedArticle, setSelectedArticle] = useState<any | null>(null)
+  // Define type for news article
+  type NewsArticle = {
+    id: number;
+    title: string;
+    description: string;
+    url: string;
+    image: string;
+    published_at: string;
+    source: string;
+    category: string;
+  }
+  
+  const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null)
   const [news] = useState(sampleNewsArticles)
 
   // Current user ID (simulated)
@@ -467,14 +479,14 @@ export default function CommunityPage() {
   const handleReportPost = (postId: number) => {
     toast({
       title: "Post reported",
-      description: "Thank you for reporting this post. Our moderators will review it.",
+      description: `Thank you for reporting post #${postId}. Our moderators will review it.`,
     })
   }
 
   const handleReportComment = (commentId: number) => {
     toast({
       title: "Comment reported",
-      description: "Thank you for reporting this comment. Our moderators will review it.",
+      description: `Thank you for reporting comment #${commentId}. Our moderators will review it.`,
     })
   }
 

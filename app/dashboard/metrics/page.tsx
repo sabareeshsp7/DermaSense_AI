@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState } from "react"
 import { format } from "date-fns"
 import { jsPDF } from "jspdf"
 import autoTable from "jspdf-autotable"
@@ -336,8 +336,7 @@ export default function HealthMetricsPage() {
   // Threshold settings state
   const [thresholds, setThresholds] = useState(healthMetricsData.thresholds)
 
-  // PDF report generation
-  const reportRef = useRef<HTMLDivElement>(null)
+  // PDF report generation is handled by jsPDF directly
 
   // Function to handle saving health log
   const handleSaveHealthLog = () => {
@@ -493,7 +492,14 @@ export default function HealthMetricsPage() {
 
   // Function to download health report as PDF
   const handleDownloadReport = () => {
-    const doc = new jsPDF()
+    // Define the type for jsPDF with autoTable plugin
+    interface JsPDFWithAutoTable extends jsPDF {
+      lastAutoTable?: {
+        finalY: number;
+      };
+    }
+
+    const doc = new jsPDF() as JsPDFWithAutoTable
 
     // Add header
     doc.setFontSize(20)
@@ -545,7 +551,8 @@ export default function HealthMetricsPage() {
     })
 
     // Add historical data section
-    const finalY = (doc as any).lastAutoTable.finalY + 15
+    // Use the return value from autoTable which contains the finalY position
+    const finalY = (doc.lastAutoTable?.finalY || 100) + 15
     doc.setFontSize(14)
     doc.text("Health Trends (Last 30 Days)", 20, finalY)
 
@@ -572,12 +579,11 @@ export default function HealthMetricsPage() {
       styles: { fontSize: 9 },
       headStyles: { fillColor: [0, 102, 204] },
     })
-
+    
     // Add recent health logs
-    const finalY2 = (doc as any).lastAutoTable.finalY + 15
+    const finalY2 = (doc.lastAutoTable?.finalY || finalY + 150) + 15;
     doc.setFontSize(14)
     doc.text("Recent Health Logs", 20, finalY2)
-
     const healthLogsData = healthMetricsData.healthLogs
       .slice(0, 5)
       .map((log) => [
@@ -800,7 +806,7 @@ export default function HealthMetricsPage() {
               <Progress
                 value={getLatestHealthLog().metrics.painLevel * 10}
                 className="h-2"
-                indicatorClassName={
+                color={
                   getLatestHealthLog().metrics.painLevel >= thresholds.painLevel.alert
                     ? "bg-red-500"
                     : getLatestHealthLog().metrics.painLevel >= thresholds.painLevel.warning
@@ -831,7 +837,7 @@ export default function HealthMetricsPage() {
               <Progress
                 value={getLatestHealthLog().metrics.fatigue * 10}
                 className="h-2"
-                indicatorClassName={
+                color={
                   getLatestHealthLog().metrics.fatigue >= thresholds.fatigue.alert
                     ? "bg-red-500"
                     : getLatestHealthLog().metrics.fatigue >= thresholds.fatigue.warning
@@ -862,7 +868,7 @@ export default function HealthMetricsPage() {
               <Progress
                 value={getLatestHealthLog().metrics.hydration * 10}
                 className="h-2"
-                indicatorClassName={
+                color={
                   getLatestHealthLog().metrics.hydration <= thresholds.hydration.alert
                     ? "bg-red-500"
                     : getLatestHealthLog().metrics.hydration <= thresholds.hydration.warning
@@ -930,7 +936,7 @@ export default function HealthMetricsPage() {
             </div>
 
             <div className="space-y-2">
-              <h3 className="text-sm font-medium">Today's Medications</h3>
+              <h3 className="text-sm font-medium">Today&apos;s Medications</h3>
               {getMedicationsDueToday().length === 0 ? (
                 <div className="flex items-center justify-center rounded-lg border p-4">
                   <p className="text-sm text-muted-foreground">No medications due today</p>
@@ -1335,8 +1341,24 @@ export default function HealthMetricsPage() {
               <CardDescription>Visualize how your symptoms have changed over time</CardDescription>
             </CardHeader>
             <CardContent className="h-[400px]">
-              <SymptomTimeline healthLogs={healthMetricsData.healthLogs} />
-            </CardContent>
+                <SymptomTimeline 
+                  healthLogs={healthMetricsData.healthLogs.map(log => ({
+                    date: log.date,
+                    metrics: {
+                      painLevel: log.metrics.painLevel,
+                      fatigue: log.metrics.fatigue,
+                      hydration: log.metrics.hydration,
+                      appetite: log.metrics.appetite,
+                      mood: log.metrics.mood,
+                      sleep: log.metrics.sleep,
+                      lesionSize: log.metrics.lesionSize,
+                      temperature: log.metrics.temperature
+                    },
+                    alerts: log.alerts.map(alert => alert.message),
+                    notes: log.notes
+                  }))} 
+                />
+              </CardContent>
           </Card>
 
           {/* Health Logs */}
@@ -1480,7 +1502,7 @@ export default function HealthMetricsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Medication Adherence</CardTitle>
-              <CardDescription>Track how consistently you're taking your medications</CardDescription>
+              <CardDescription>Track how consistently you&apos;re taking your medications</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
@@ -1496,7 +1518,7 @@ export default function HealthMetricsPage() {
                     <Progress
                       value={medication.adherence}
                       className="h-2"
-                      indicatorClassName={
+                      color={
                         medication.adherence >= 90
                           ? "bg-green-500"
                           : medication.adherence >= 70
@@ -1533,7 +1555,13 @@ export default function HealthMetricsPage() {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
-                    <CalendarComponent mode="single" selected={selectedDate} onSelect={setSelectedDate} initialFocus />
+                    <CalendarComponent 
+                      mode="single" 
+                      selected={selectedDate || undefined} 
+                      onSelect={(date) => setSelectedDate(date || null)} 
+                      initialFocus 
+                      required={false} 
+                    />
                   </PopoverContent>
                 </Popover>
 
@@ -1776,6 +1804,7 @@ export default function HealthMetricsPage() {
                       checked={selectedMedications.includes(medication.id)}
                       onChange={() => toggleMedicationSelection(medication.id)}
                       className="h-4 w-4 rounded border-gray-300"
+                      aria-label={`Take ${medication.name}`}
                     />
                     <Label htmlFor={`med-${medication.id}`} className="text-sm font-normal">
                       {medication.name} ({medication.dosage})
@@ -1925,7 +1954,7 @@ export default function HealthMetricsPage() {
                 </div>
               </div>
               <p className="text-xs text-muted-foreground">
-                You'll receive a warning when pain reaches {thresholds.painLevel.warning}/10 and an alert at{" "}
+                You&apos;ll receive a warning when pain reaches {thresholds.painLevel.warning}/10 and an alert at{" "}
                 {thresholds.painLevel.alert}/10
               </p>
             </div>

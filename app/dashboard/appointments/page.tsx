@@ -33,6 +33,26 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { toast } from "@/components/ui/use-toast"
 import { cn } from "@/lib/utils"
 
+type Doctor = {
+  id: number
+  name: string
+  specialty: string
+  subspecialty: string
+  hospital: string
+  rating: number
+  reviews: number
+  experience: number
+  image: string
+  availableToday: boolean
+  nextAvailable: string
+  consultationFee: number
+  location: string
+  about: string
+  education: string[]
+  languages: string[]
+  telemedicine: boolean
+}
+
 // Sample data for doctors
 const doctors = [
   {
@@ -207,16 +227,16 @@ export default function AppointmentsPage() {
   const [priceRange, setPriceRange] = useState([0, 5000])
   const [onlyTelemedicine, setOnlyTelemedicine] = useState(false)
   const [availableToday, setAvailableToday] = useState(false)
-  const [selectedDoctor, setSelectedDoctor] = useState<any>(null)
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null)
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<Date | null>(null)
   const [consultationType, setConsultationType] = useState("in-person")
   const [showBookingSuccess, setShowBookingSuccess] = useState(false)
   const [uploadedFiles, setUploadedFiles] = useState<string[]>([])
   const [appointmentId, setAppointmentId] = useState("")
-  const [patientName, setPatientName] = useState("John Doe") // In a real app, get from user profile
-  const [patientEmail, setPatientEmail] = useState("john.doe@example.com") // In a real app, get from user profile
-  const [patientPhone, setPatientPhone] = useState("+91 9876543210") // In a real app, get from user profile
+  const [patientName] = useState("John Doe") // In a real app, get from user profile
+  const [patientEmail] = useState("john.doe@example.com") // In a real app, get from user profile
+  const [patientPhone] = useState("+91 9876543210") // In a real app, get from user profile
 
   // Generate available dates and time slots
   const availableDates = generateDates()
@@ -409,21 +429,21 @@ export default function AppointmentsPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">Oncologist Appointments</h2>
-          <p className="text-muted-foreground">Find and schedule consultations with specialized skin cancer doctors</p>
-        </div>
-
-        <div className="flex gap-2">
-          <Button variant="outline" className="flex items-center gap-2">
-            <Bell className="h-4 w-4" />
-            Reminders
-          </Button>
-          <Button variant="outline" className="flex items-center gap-2">
-            <Calendar className="h-4 w-4" />
-            My Appointments
-          </Button>
-        </div>
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight">Oncologist Appointments</h2>
+            <p className="text-muted-foreground">Find and schedule consultations with specialized skin cancer doctors</p>
+          </div>
+          
+          <div className="flex gap-2">
+            <Button variant="outline" className="flex items-center gap-2">
+              <Bell className="h-4 w-4" />
+              Reminders
+            </Button>
+            <Button variant="outline" className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
+              My Appointments
+            </Button>
+          </div>
       </div>
 
       {/* Search and Filters */}
@@ -626,13 +646,13 @@ export default function AppointmentsPage() {
                           value="in-person"
                           checked={consultationType === "in-person"}
                           onChange={() => setConsultationType("in-person")}
+                          title="In-Person Option"
                           className="h-4 w-4"
                         />
                         <Label htmlFor="in-person" className="text-sm font-normal">
                           In-Person
                         </Label>
                       </div>
-
                       <div className="flex items-center space-x-2">
                         <input
                           type="radio"
@@ -640,6 +660,7 @@ export default function AppointmentsPage() {
                           value="telemedicine"
                           checked={consultationType === "telemedicine"}
                           onChange={() => setConsultationType("telemedicine")}
+                          title="Telemedicine Option"
                           className="h-4 w-4"
                           disabled={!selectedDoctor.telemedicine}
                         />
@@ -652,7 +673,6 @@ export default function AppointmentsPage() {
                       </div>
                     </div>
                   </div>
-
                   <div className="space-y-2">
                     <Label>Select Date</Label>
                     <div className="grid grid-cols-4 gap-2">
@@ -862,4 +882,3 @@ export default function AppointmentsPage() {
     </div>
   )
 }
-

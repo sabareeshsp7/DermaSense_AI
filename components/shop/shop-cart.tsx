@@ -9,11 +9,19 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 import { Separator } from "@/components/ui/separator"
 import { Checkout } from "@/components/shop/checkout"
 
+interface CartItem {
+  id: number
+  name: string
+  price: number
+  quantity: number
+  image?: string
+}
+
 interface ShopCartProps {
   open: boolean
   onClose: () => void
-  items: any[]
-  setItems: (items: any[]) => void
+  items: CartItem[]
+  setItems: (items: CartItem[]) => void
 }
 
 export function ShopCart({ open, onClose, items, setItems }: ShopCartProps) {
@@ -141,7 +149,11 @@ export function ShopCart({ open, onClose, items, setItems }: ShopCartProps) {
               exit={{ opacity: 0 }}
               className="flex-1"
             >
-              <Checkout cart={items} total={subtotal} onSuccess={handleCheckoutSuccess} />
+              <Checkout
+                cart={items.map((item) => ({ ...item, id: String(item.id), image: item.image || "/placeholder.svg" }))}
+                total={subtotal}
+                onSuccess={handleCheckoutSuccess}
+              />
             </motion.div>
           )}
         </AnimatePresence>

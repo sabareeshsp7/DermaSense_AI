@@ -32,6 +32,7 @@
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/supabase-js": "^2.49.1",
     "@types/googlemaps": "^3.43.3",
+    "@vercel/speed-insights": "^1.2.0",
     "better-sqlite3": "^11.8.1",
     "boring-avatars": "^1.11.2",
     "class-variance-authority": "^0.7.1",

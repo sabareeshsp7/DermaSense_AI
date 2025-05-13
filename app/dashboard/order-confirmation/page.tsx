@@ -100,7 +100,7 @@ export default function OrderConfirmationPage() {
     })
 
     // Add total section
-    const finalY = (doc as any).lastAutoTable.finalY + 10
+    const finalY = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 10
 
     doc.text(`Subtotal: ₹${subtotal.toFixed(2)}`, 150, finalY)
     if (discount > 0) {
